@@ -58,24 +58,39 @@ tr:nth-child(even) {
 
 .ribbon {
     position: fixed;
-    top: 30px;
-    left: -40px; /* Décalage pour l'angle */
     color: white;
     padding: 5px 40px;
-    transform: rotate(-45deg); /* Inclinaison */
+    
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     font-size: 12px;
     font-weight: bold;
     z-index: 1;
-    pointer-events: none; /* Empêche l'interaction avec le ruban */
 }
 
-.yellow-ribbon {
-    background: #FFD54F;
+.top-left-hand-corner-ribbon {
+    top: 30px;
+    left: -40px; /* Décalage pour l'angle */
+    transform: rotate(-45deg); /* Inclinaison */
+}
+
+.top-right-hand-corner-ribbon {
+    top: 50px;
+    right: -50px; /* Décalage pour l'angle */
+    transform: rotate(45deg); /* Inclinaison */
+}
+
+.dark-ribbon {
+    background: #151b23;
 }
 
 .red-ribbon {
     background: #ff5722;
+}
+
+.imageAsCaracter {
+    width: 1em;   /* Taille proportionnelle au texte */
+    height: 1em;  /* Assure une cohérence avec la hauteur du texte */
+    margin-right: 5px; /* Espacement entre l'icône et le texte */
 }
 
 .prevent {
