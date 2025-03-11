@@ -5,8 +5,9 @@ FROM node:18-alpine
 RUN apk add --no-cache python3 py3-pip
 
 # Créer un environnement virtuel Python
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
+RUN python3 -m venv /app/private/scripts/houat_analyzer/venv
+ENV PATH="/app/private/scripts/houat_analyzer/venv/bin:$PATH"
+
 
 # Installer les dépendances Python dans le venv
 COPY private/scripts/houat_analyzer/requirements.txt .
