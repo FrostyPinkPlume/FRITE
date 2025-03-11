@@ -31,13 +31,16 @@ app.use(express.urlencoded({ extended: true })); // Gérer les fichiers correcte
 
 
 // Journalisation
+app.set('trust proxy', true); // Permet d'utiliser X-Forwarded-For
+
 app.use((req, res, next) => {
     const start = Date.now(); // Pour calculer le temps de traitement
     res.on('finish', () => {
         const duration = Date.now() - start;
-        const userName = req.session?.userInfos?.name || '-';
+        const clientIp = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.ip;
+        const userName = '-';
         console.log(
-            `${req.ip} - ${userName} [${new Date().toISOString()}] "${req.method} ${req.originalUrl} ${req.protocol}" ${res.statusCode} - ${duration}ms`
+            `${clientIp} - ${userName} [${new Date().toISOString()}] "${req.method} ${req.originalUrl} ${req.protocol}" ${res.statusCode} - ${duration}ms`
         );
     });
     next();
