@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body>
+        <div class="friteHeader">
+            <h1>FRITE</h1>
+            <h3 style="padding-left: 10px;">Fiches Rapides Integrant un Tracé d'Efficacité</h3>
+        </div>
+        <div class="friteInfos">
+            <div>#<%= file.replace(/\.pdf$/, ""); %></div>
+        </div>
+
+        <% if (data) { %>
+            <table>
+                <tr>
+                    <th>Gare</th>
+                    <th>Horaire</th>
+                    <th>Point Kilométrique</th>
+                    <th>Vitesse moyenne</th>
+                </tr>
+                <% data.forEach(entry => { %>
+                    <tr>
+                        <td><%= entry.gare %></td>
+                        <td><%= entry.horaire %></td>
+                        <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
+                        <td class="topAlignment"><%= entry.vitesse %></td>
+                    </tr>
+                <% }) %>
+            </table>
+        <% } else { %>
+            <p>Erreur dans l'analyse du fichier.</p>
+        <% } %>
+
+        <%- include('../partials/foot'); %>
+    </body>
+</html>

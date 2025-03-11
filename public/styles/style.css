@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'Aldrich';
+    src: url(/assets/fonts/Aldrich-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Merienda';
+    src: url(/assets/fonts/Merienda/Merienda-VariableFont_wght.ttf) format('truetype');
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Merienda';
+    width: 100%;
+    position: relative;
+    /* background-image: linear-gradient(37deg,#1f2537,#286fff 500%); 
+    color: #b1b8c0;*/
+    min-height: 95vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sendHouatForm {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pinkBody {
+    background-image: linear-gradient(37deg,#ffe6f2,#fab4bc 500%);
+}
+
+a {
+    text-decoration: none; /* Supprime le soulignement */
+    color: inherit; /* Utilise la couleur du texte environnant */
+}
+
+table {
+    width : 50%;
+}
+
+td, th {
+    padding: 8px;
+    height: 3em; /* Définit la hauteur des cellules à 2 fois la taille de la police */
+    vertical-align: bottom; /* Texte aligné en bas par défaut */
+}
+
+.topAlignment {
+    vertical-align: top; /* Texte aligné en haut pour les cellules avec cette classe */
+}
+
+tr:nth-child(even) {
+    background-color: #ffe6f2; /* Rose très clair */
+}
+
+.ribbon {
+    position: fixed;
+    top: 30px;
+    left: -40px; /* Décalage pour l'angle */
+    color: white;
+    padding: 5px 40px;
+    transform: rotate(-45deg); /* Inclinaison */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+    pointer-events: none; /* Empêche l'interaction avec le ruban */
+}
+
+.yellow-ribbon {
+    background: #FFD54F;
+}
+
+.red-ribbon {
+    background: #ff5722;
+}
+
+.prevent {
+    font-size: 0.75em;
+}
+
+.clause {
+    width:50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.longParagraph {
+    margin: 1rem;
+}
+
+.rainbow-text {
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }  
+
+footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+}
+
+.indexCentered {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.friteHeader {
+    display: flex;
+    flex-direction: row;
+    font-style: italic;
+    align-items: baseline;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.friteInfos {
+    width: 100%;
+}

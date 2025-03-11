@@ -1,0 +1,14 @@
+{
+    "name": "frite",
+    "version": "0.0.0",
+    "description": "Fiches Rapides Integrant un Tracé d'Efficacité. Analyse de fiches HOUAT SNCF.",
+    "main": "src/server.js",
+    "type": "module",
+    "author": "FrostyPinkPlume",
+    "license": "AGPL-3.0-or-later",
+    "dependencies": {
+        "ejs": "^3.1.10",
+        "express": "^4.21.2",
+        "multer": "^1.4.5-lts.1"
+    }
+}
