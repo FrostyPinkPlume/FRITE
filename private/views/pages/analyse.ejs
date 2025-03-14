@@ -8,11 +8,16 @@
             <h1>FRITE</h1>
             <h3 style="padding-left: 10px;">Fiches Rapides Integrant un Tracé d'Efficacité</h3>
         </div>
+
+        <% if (file) { %>
         <div class="friteInfos">
             <div>#<%= file.replace(/\.pdf$/, ""); %></div>
         </div>
+        <% } %>
 
-        <% if (data) { %>
+        <% if (erreur) { %>
+            <p><%= erreur %></p>
+        <% } else if (data) { %>
             <table>
                 <tr>
                     <th>Gare</th>

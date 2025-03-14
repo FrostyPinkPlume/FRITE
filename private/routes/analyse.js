@@ -72,10 +72,13 @@ router.get('/', async (req, res) => {
         return res.render('pages/analyse', { file: null, data: null });
     }
 
+    // Vérifier si fileName est conforme
+    if(Array.isArray(fileName)) { // Est ce que fileName est un array (plusieurs champs field spécifiés dans l'URI)
+        return res.render('pages/analyse', { file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
+    }
+
     // Récupérer le chemin vers le fichier
     const filePath = path.join(uploadDir, fileName);
-
-    // ??? Vérifier si le fichier existe
 
     // Appeler le script Python avec un environnement virtuel python (pour gestion des dépendances)
     const pythonProcess = spawn(
