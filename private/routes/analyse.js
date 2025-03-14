@@ -67,14 +67,16 @@ router.post('/', upload.single('houat'), (req, res) => {
 router.get('/', async (req, res) => {
     const fileName = req.query.file; // Récupération du nom du fichier
 
-    // Vérification si le nom du fichier est spécifié
-    if (!fileName) {
+    // Vérifier si fileName est conforme
+    if (!fileName) { // Vérification si le nom du fichier est spécifié
         return res.render('pages/analyse', { file: null, data: null });
     }
-
-    // Vérifier si fileName est conforme
     if(Array.isArray(fileName)) { // Est ce que fileName est un array (plusieurs champs field spécifiés dans l'URI)
         return res.render('pages/analyse', { file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
+    }
+    const regex = /^[0-9]+\.pdf$/;
+    if (regex.test(fileName)) { // Est ce que la variable field n'est bien constituée que du fichier pdf (protection contre les accès non autorisés)
+        return res.render('pages/analyse', { file: null, erreur: "La ressource demandée est invalide." });
     }
 
     // Récupérer le chemin vers le fichier
