@@ -79,6 +79,11 @@ router.get('/', async (req, res) => {
         return res.render('pages/analyse', { file: null, erreur: "La ressource demandée est invalide." });
     }
 
+    // Vérifier si le fichier pdf existe
+    if (!fs.existsSync(path.join(uploadDir, fileName))) {
+        return res.render('pages/analyse', { file: null, erreur: "Le fichier demandé n'existe pas/plus. Ce site étant encore en développement précoce, votre fichier a peut-être été nettoyé du système lors d'un redéploiement. Veuillez m'en excuser" });
+    }
+
     // Récupérer le chemin vers le fichier
     const filePath = path.join(uploadDir, fileName);
 
