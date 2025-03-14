@@ -9,7 +9,7 @@
             <h3 style="padding-left: 10px;">Fiches Rapides Integrant un Tracé d'Efficacité</h3>
         </div>
 
-        <% if (file) { %>
+        <% if (typeof file !== 'undefined' && file) { %>
         <div class="friteInfos">
             <div>#<%= file.replace(/\.pdf$/, ""); %></div>
         </div>

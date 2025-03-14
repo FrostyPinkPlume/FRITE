@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-import { loadPKData,assignOptimalPK,insertAverageSpeeds } from '../scripts/functions/analyse_f.js' // Importe les fonctions relatives a ces routes
+import { verifyFileName, loadPKData,assignOptimalPK,insertAverageSpeeds } from '../scripts/functions/analyse_f.js' // Importe les fonctions relatives a ces routes
 
 import { spawn } from 'child_process'; // Permet l'appel de l'analyseur python
 
@@ -67,16 +67,14 @@ router.post('/', upload.single('houat'), (req, res) => {
 router.get('/', async (req, res) => {
     const fileName = req.query.file; // Récupération du nom du fichier
 
-    // Vérifier si fileName est conforme
-    if (!fileName || fileName === "") { // Vérification si le nom du fichier est spécifié
-        return res.render('pages/analyse', { file: null, erreur: "Veuillez préciser une fiche HOUAT." });
-    }
-    if(Array.isArray(fileName)) { // Est ce que fileName est un array (plusieurs champs field spécifiés dans l'URI)
-        return res.render('pages/analyse', { file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
-    }
-    const regex = /^[0-9]+\.pdf$/;
-    if (! regex.test(fileName)) { // Est ce que la variable field n'est bien constituée que du fichier pdf (protection contre les accès non autorisés)
-        return res.render('pages/analyse', { file: null, erreur: "La ressource demandée est invalide." });
+    // Vérifications de fileName
+    switch(verifyFileName(fileName)) {
+        case 1: // fileName n'est pas défini ou vaut ""
+            return res.render('pages/analyse', { file: null, erreur: "Veuillez préciser une fiche HOUAT." });
+        case 2: // fileName est un array (possible si la variable file est déclarée plusieurs fois dans l'URL)
+            return res.render('pages/analyse', { file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
+        case 3: // fileName n'est pas dans un format attendu (entre autre, une suite de nombres suivis de .pdf)
+            return res.render('pages/analyse', { file: null, erreur: "La ressource demandée est invalide." });
     }
 
     // Vérifier si le fichier pdf existe

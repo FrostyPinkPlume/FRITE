@@ -117,3 +117,26 @@ function parseTime(horaire) {
     date.setHours(heures, minutes, 0, 0);
     return date.getTime();
 }
+
+
+/*
+Fonction de vérification de la variable file récupérée dans /analyse avec la méthode GET
+
+Retourne : 
+1 Si fileName est non défini ou un string vide
+2 Si c'est un array
+3 Si ce n'est pas de la forme [une suite de chiffre].pdf
+*/
+export function verifyFileName(fileName) {
+        // Vérifier si fileName est conforme
+        if (!fileName || fileName === "") { // Vérification si le nom du fichier est spécifié
+            return 1;
+        }
+        if(Array.isArray(fileName)) { // Est ce que fileName est un array (plusieurs champs field spécifiés dans l'URI)
+            return 2;
+        }
+        const regex = /^[0-9]+\.pdf$/;
+        if (! regex.test(fileName)) { // Est ce que la variable field n'est bien constituée que du fichier pdf (protection contre les accès non autorisés)
+            return 3;
+        }
+}
