@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
         return res.render('pages/analyse', { file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
     }
     const regex = /^[0-9]+\.pdf$/;
-    if (regex.test(fileName)) { // Est ce que la variable field n'est bien constituée que du fichier pdf (protection contre les accès non autorisés)
+    if (! regex.test(fileName)) { // Est ce que la variable field n'est bien constituée que du fichier pdf (protection contre les accès non autorisés)
         return res.render('pages/analyse', { file: null, erreur: "La ressource demandée est invalide." });
     }
 
