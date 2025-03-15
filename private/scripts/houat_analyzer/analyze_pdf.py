@@ -22,11 +22,14 @@ def extract_schedule(pdf_path):
                         continue  # Trop court pour être une ligne valide
 
                     # Trouver les parties via une regex qui prend les gares avec espaces
-                    match = re.match(r"^(.+?)(?:\s\(.+\))?\s+(\S{2})\s+(?:\S{2,3})\s+(\d{2}\.\d{2})(?:\s+(\d{2}\.\d{2}))?(?:\sr\d)?$", line)
+                    match = re.match(r"^(.+?)(?:\s\(.+\))?\s+(\S{2})\s+(?:\S{2,3})\s+(\d{2}\.\d{2})(?:\s+(\d{2}\.\d{2}))?(?:\s\[.\])?(?:\sr\d)?$", line)
                     if not match:
                         continue
                     
                     gare, point, horaire, depart = match.groups()
+
+                    if depart is not None:
+                        print(f"Départ trouvé : {depart}")
 
                     # Si c'est un "-", on le remplace par la dernière gare explicite connue
                     if gare == "-":
@@ -39,13 +42,13 @@ def extract_schedule(pdf_path):
                     last_explicit_station = gare
 
                     # Stocker la première et dernière ligne indépendamment des critères BV/00
-                    entry = {"gare": gare, "horaire": horaire}
+                    entry = {"gare": gare, "horaire": horaire, "depart": depart}
                     if first_entry is None:
                         first_entry = entry
                     last_entry = entry  # Toujours écrasé pour obtenir la dernière
 
                     # Vérifier si on garde cette gare (uniquement "BV" ou "00")
-                    if point in ["BV", "00"]:
+                    if point in ["BV", "00"] or depart is not None:
                         if gare not in seen_stations:
                             data.append(entry)
                             seen_stations.add(gare)
