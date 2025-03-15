@@ -28,7 +28,7 @@
                 <% data.forEach(entry => { 
                     if (entry.depart !== null) {%>
                         <tr>
-                            <td><%= entry.gare %> (Arrivée)</td>
+                            <td><b><%= entry.gare %> (Arrivée)</b></td>
                             <td><%= entry.horaire %></td>
                             <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
                             <td class="topAlignment"><%= entry.vitesse %></td>
