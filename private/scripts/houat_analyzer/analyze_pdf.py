@@ -28,9 +28,6 @@ def extract_schedule(pdf_path):
                     
                     gare, point, horaire, depart = match.groups()
 
-                    if depart is not None:
-                        print(f"Départ trouvé : {depart}")
-
                     # Si c'est un "-", on le remplace par la dernière gare explicite connue
                     if gare == "-":
                         if last_explicit_station:
