@@ -87,8 +87,17 @@ export function insertAverageSpeeds(parsedData) {
             let pkA = gareA.pk;
             let pkB = gareB.pk;
 
-            let timeA = parseTime(gareA.horaire);
+            // Définir les variables qui contiendront les horaires
+            let timeA;
             let timeB = parseTime(gareB.horaire);
+
+            // Particularité de la gare A, si un horaire de depart est spécifié alors on prendre celui là
+            if (gareA.depart !== null) { // Si un depart est spécifié alors timeA sera l'horaire de départ
+                timeA = parseTime(gareA.depart);
+            }
+            else { // Sinon on prend l'horaire de passage-
+                timeA = parseTime(gareA.horaire);
+            }
 
             let deltaPK = Math.abs(pkB - pkA); // Distance en km
             let deltaTime = (timeB - timeA) / 3600000; // Temps en heures
@@ -124,7 +133,6 @@ Fonction de vérification de la variable file récupérée dans /analyse avec la
 
 Retourne : 
 0 si c'est ok
-
 1 Si fileName est non défini ou un string vide
 2 Si c'est un array
 3 Si ce n'est pas de la forme [une suite de chiffre].pdf

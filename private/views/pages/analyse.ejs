@@ -25,14 +25,29 @@
                     <th>Point Kilométrique</th>
                     <th>Vitesse moyenne*</th>
                 </tr>
-                <% data.forEach(entry => { %>
-                    <tr>
-                        <td><%= entry.gare %></td>
-                        <td><%= entry.horaire %></td>
-                        <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
-                        <td class="topAlignment"><%= entry.vitesse %></td>
-                    </tr>
-                <% }) %>
+                <% data.forEach(entry => { 
+                    if (entry.depart !== null) {%>
+                        <tr>
+                            <td><%= entry.gare %> (Arrivée)</td>
+                            <td><%= entry.horaire %></td>
+                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
+                            <td class="topAlignment"><%= entry.vitesse %></td>
+                        </tr>
+                        <tr>
+                            <td><%= entry.gare %> (Départ)</td>
+                            <td><%= entry.depart %></td>
+                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
+                            <td class="topAlignment">-</td>
+                        </tr>
+                    <% } else {%>
+                        <tr>
+                            <td><%= entry.gare %></td>
+                            <td><%= entry.horaire %></td>
+                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
+                            <td class="topAlignment"><%= entry.vitesse %></td>
+                        </tr>
+                    <% }
+                }) %>
             </table>
             <p class="prevent" style="text-align: center;"><i>* Les vitesses moyennes sont purement issues de calculs entre les horaires de passages indiqués par votre fiche HOUAT et les point kilométriques et ne sont pas des vitesses à atteindre.<br />Elles peuvent être supérieures aux vitesses maximales selon votre catégorie.<br /><br />Ne dépassez jamais la plus basse des vitesses limites de votre train.</i></p>
         <% } else { %>
