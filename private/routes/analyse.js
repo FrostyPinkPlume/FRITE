@@ -108,10 +108,22 @@ router.get('/', async (req, res) => {
         if (code !== 0) {
             return res.render('pages/analyse', { file: fileName, data: null });
         }
-        
+
         // Code de sorti est OK, essayer de parser les donner JSON, sinon affiche l'erreur du parsing JSON
         try {
-            let parsedData = JSON.parse(output);
+
+            // Tenter de parser les données renvoyées par l'analyseur en JSON
+            let parsedData;
+            try {
+                parsedData = JSON.parse(output);
+            } catch (e) {
+                return res.render('pages/analyse', { file: null, erreur: "Erreur lors de l'interpretation des données de l'analyse. Veuillez m'en excuser" });
+            }
+
+            // Si les données parsées sont vide, donner un retour différent
+            if(parsedData.length == 0){
+                return res.render('pages/analyse', { file: null, erreur: "Le fichier analysé n'a pas renvoyé de donnée. Assurez-vous que le fichier envoyé soit valide et contienne bien du texte.\n(Certaines fiches HOUAT peuvent ne pas contenir de texte exploitable et ne contenir qu'une image du tableau horaire)." });
+            }
 
             // Associe les gares aux PKs
             parsedData = parsedData
