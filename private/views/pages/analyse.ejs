@@ -30,21 +30,57 @@
                         <tr>
                             <td><b><%= entry.gare %> (Arrivée)</b></td>
                             <td><%= entry.horaire %></td>
-                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
-                            <td class="topAlignment"><%= entry.vitesse %></td>
+                            <td>
+                                <% if (entry.pk && entry.pk.length > 0) { %>
+                                    <% entry.pk.forEach(p => { %>
+                                        <% if (debug_frite) { %>
+                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
+                                        <% } else { %>
+                                            <div><%= p.pk %></div>
+                                        <% } %>
+                                    <% }) %>
+                                <% } else { %>
+                                    Non trouvé
+                                <% } %>
+                            </td>
+                            <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
                         </tr>
                         <tr>
                             <td><%= entry.gare %> (Départ)</td>
                             <td><%= entry.depart %></td>
-                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
+                            <td>
+                                <% if (entry.pk && entry.pk.length > 0) { %>
+                                    <% entry.pk.forEach(p => { %>
+                                        <% if (debug_frite) { %>
+                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
+                                        <% } else { %>
+                                            <div><%= p.pk %></div>
+                                        <% } %>
+                                    <% }) %>
+                                <% } else { %>
+                                    Non trouvé
+                                <% } %>
+                            </td>
                             <td class="topAlignment">-</td>
                         </tr>
                     <% } else {%>
                         <tr>
                             <td><%= entry.gare %></td>
                             <td><%= entry.horaire %></td>
-                            <td><%= entry.pk !== null ? entry.pk : 'Non trouvé' %></td>
-                            <td class="topAlignment"><%= entry.vitesse %></td>
+                            <td>
+                                <% if (entry.pk && entry.pk.length > 0) { %>
+                                    <% entry.pk.forEach(p => { %>
+                                        <% if (debug_frite) { %>
+                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
+                                        <% } else { %>
+                                            <div><%= p.pk %></div>
+                                        <% } %>
+                                    <% }) %>
+                                <% } else { %>
+                                    Non trouvé
+                                <% } %>
+                            </td>
+                            <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
                         </tr>
                     <% }
                 }) %>
