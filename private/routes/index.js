@@ -8,7 +8,11 @@ router.get('/', async (req, res) => {
     // Sélectionner un message aléatoire
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    res.render('pages/index', { message: randomMessage });
+    const randomGares = gares.sort(() => 0.5 - Math.random()).slice(0, 2);
+
+    const placeholder = randomGares[0] + " -> " + randomGares[1] + " " + String(Math.floor(Math.random() * 9)) + "min  Voie " + String(Math.floor(Math.random() * 9))
+
+    res.render('pages/index', { message: randomMessage, placeholder: placeholder });
 })
 
 // Exportation du routeur à importer dans une application express
@@ -39,5 +43,26 @@ const messages = [
     "Les villes à l'horizon", // Cities skyline
     "Pour les chiots et les chatons", // Satisfactory
     "Un train passe à Stardew Valley", // Stardew valley
-    "Trans-Factorio express", // Factorio
+    "Trans-Factorio express ", // Factorio
 ];
+
+const gares = [
+    "LHA", // Le havre
+    "VIT", // Vittel
+    "SDN", // Surdon
+    "VOU", // Voutré
+    "SPC", // Saint pierre des corps
+    "SVD", // Saint avold
+    "LLF", // Lilles
+    "RRD", // Rouen
+    "MAS", // Miramas
+    "LM", // Le Mans
+    "VSG", // Villeneuve
+    "MYV", // Mittry
+    "TRA", // Trappes
+    "CHH", // Chartres
+    "NUN", // Nanterre
+    "CZW", // (Inventé) Creutzwald
+    "AUP", // Autun
+    "MRL", // (Inventé) Montmirail
+]

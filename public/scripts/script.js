@@ -5,12 +5,17 @@ function prepareAllSplitFlaps() {
     $('.split-flap').each(function () {
         const $display = $(this);
         const finalText = transformAndFilterCharacters($display.data("display"));
+        const placeholderText = transformAndFilterCharacters($display.data("placeholder"));
 
         $display.empty();
 
-        finalText.split('').forEach(char => {
-            $display.append(createFlap(randomChar(), char));
-        });
+        var maxNumberOfLetter = Math.max(finalText.length, placeholderText.length);
+
+        for (let i = 0; i < maxNumberOfLetter; i++) {
+            const placeholderChar = placeholderText.charAt(i) || ' ';
+            const finalChar = finalText.charAt(i) || ' ';
+            $display.append(createFlap(placeholderChar, finalChar));
+        }
     });
 }
 
@@ -22,16 +27,16 @@ function randomChar() {
     return chars[Math.floor(Math.random() * chars.length)];
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function transformAndFilterCharacters(text) {
     // Transformer en majuscules
     let transformedText = text.toUpperCase();
 
     // Filtrer les caractères pour ne conserver que ceux présents dans `chars`
     return transformedText.split('').filter(char => chars.includes(char)).join('');
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function updateText() {
