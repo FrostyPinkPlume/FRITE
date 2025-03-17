@@ -55,12 +55,12 @@ async function updateText() {
     }
 }
 
-console.log("0");
-
 $(function() {
-    console.log("A");
     prepareAllSplitFlaps();
-    console.log("B");
     setTimeout(() => updateText(), 1000);
-    console.log("C");
+    
+    $("#darkmode-toggle").click(function() {
+        $("#darkmode-toggle").toggleClass("darkmode-active");
+        $("html").toggleClass("dark");
+    });
 });

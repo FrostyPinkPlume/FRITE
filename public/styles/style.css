@@ -10,6 +10,25 @@
     src: url(/assets/fonts/Merienda/Merienda-VariableFont_wght.ttf) format('truetype');
 }
 
+:root {
+    --main-color: #FAB4BC;
+    --lighter-main: #ffe6f2;
+    --darker-main: #694C4F;
+    --even-darker-main: #0d0d0d;
+    --secondary-color: #FAE9B4;
+    --text-light: #000000;
+    --text-dark: #ffffff;
+    --text-primary-light: #FFD5E1;
+    --text-primary-darker: #4D4044;
+
+
+    --even-lines-background-color: var(--lighter-main);
+}
+
+.dark {
+    --even-lines-background-color: var(--darker-main);
+}
+
 body {
     min-height: 100vh;
     font-family: 'Merienda';
@@ -22,6 +41,13 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    margin: 0px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+    background-color: var(--even-darker-main);
+    color: var(--text-dark);
 }
 
 .split-flap {
@@ -86,7 +112,7 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: #ffe6f2; /* Rose très clair */
+    background-color: var(--even-lines-background-color);
 }
 
 .ribbon {
@@ -186,5 +212,52 @@ footer {
 }
 
 .friteInfos {
+    width: 100%;
+}
+
+.darkmode-symbols {
+    position: absolute;
+    font-size: 32px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.darkmode-moon {
+    color: #f1c40f;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.darkmode-sun {
+    color: #f39c12;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.darkmode-active .darkmode-sun {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.darkmode-active .darkmode-moon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#darkmode-toggle {
+    margin: 5px 20px 5px 20px;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.frite-headbar {
+    display: flex;
     width: 100%;
 }
