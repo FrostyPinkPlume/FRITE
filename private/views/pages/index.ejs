@@ -4,10 +4,14 @@
         <%- include('../partials/head'); %>
     </head>
     <body class="pinkBody">
-        <div class="blue-ribbon ribbon top-left-hand-corner-ribbon">Maintenant en BETA</div>
+        <div class="red-ribbon ribbon top-left-hand-corner-ribbon">Build version ALPHA</div>
         <div class="dark-ribbon ribbon top-right-hand-corner-ribbon"><a href="https://github.com/FrostyPinkPlume/FRITE"><img src="/assets/images/github-mark-white.svg" alt="GitHub" class="imageAsCaracter">Parcourez sur Github</a></div>
         <div class="indexCentered">
             <h1 style="font-size: 3em;">Générateur de fiche FRITE</h1>
+            <div class="indexFlap">
+                <div class="split-flap" data-display="<%= message %>"></div>
+            </div>
+            <hr />
             <form class="sendHouatForm" method="post" action="/analyse" enctype="multipart/form-data">
                 <div>
                     <label for="HOUAT">Sélectionnez une fiche HOUAT :</label>
