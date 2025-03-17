@@ -1,6 +1,6 @@
 {
     "name": "frite",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Fiches Rapides Integrant un Tracé d'Efficacité. Analyse de fiches HOUAT SNCF.",
     "main": "src/server.js",
     "type": "module",
