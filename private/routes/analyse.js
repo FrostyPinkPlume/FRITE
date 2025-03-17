@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 
 import { verifyFileName, loadPKData,getLineContinuity,insertAverageSpeeds } from '../scripts/functions/analyse_f.js' // Importe les fonctions relatives a ces routes
+import { writeInCache, getInCache, doCacheExist} from '../scripts/functions/caching.js'
 
 import { spawn } from 'child_process'; // Permet l'appel de l'analyseur python
 
@@ -83,6 +84,13 @@ router.get('/', async (req, res) => {
         return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Le fichier demandé n'existe pas/plus. Ce site étant encore en développement précoce, votre fichier a peut-être été nettoyé du système lors d'un redéploiement. Veuillez m'en excuser" });
     }
 
+    // Vérifier si quelque chose n'est pas dans les caches sur ce fichier
+    if (doCacheExist(fileName)) {
+        const dataFromCache = getInCache(fileName);
+
+        return res.render('pages/analyse', { debug_frite: debug, file: fileName, data: dataFromCache });
+    }
+
     // Récupérer le chemin vers le fichier
     const filePath = path.join(uploadDir, fileName);
 
@@ -139,6 +147,9 @@ router.get('/', async (req, res) => {
 
             // Appliquer les calculs et insérer les vitesses moyennes
             parsedData = insertAverageSpeeds(parsedData);
+
+            // Ecrire dans le cache
+            writeInCache(fileName, parsedData);
 
             res.render('pages/analyse', { debug_frite: debug, file: fileName, data: parsedData });
         } catch (error) {
