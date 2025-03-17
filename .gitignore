@@ -1,5 +1,6 @@
 # Temporary files
 uploads/
+cache/
 
 # Tests files
 private/scripts/houat_analyzer/*.pdf
