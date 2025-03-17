@@ -22,7 +22,7 @@ def extract_schedule(pdf_path):
                         continue  # Trop court pour être une ligne valide
 
                     # Trouver les parties via une regex qui prend les gares avec espaces
-                    match = re.match(r"^(.+?)(?:\s\(.+\))?\s+(\S{2})\s+(?:\S{2,3})\s+(\d{2}\.\d{2})(?:\s+(\d{2}\.\d{2}))?(?:\s\[.\])?(?:\sr\d)?$", line)
+                    match = re.match(r"^(.+?)(?:\s\(.+\))?\s+(\S{2})\s+(?:\S{2,3})\s+(\d{2}\.\d{2})(?:\s+(\d{2}\.\d{2}))?(?:\s\[.\])?(?:\sr\d)*$", line)
                     if not match:
                         continue
                     
