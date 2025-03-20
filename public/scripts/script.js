@@ -62,7 +62,7 @@ async function updateText() {
 
 $(function() {
     prepareAllSplitFlaps();
-    setTimeout(() => updateText(), 1000);
+    setTimeout(() => updateText(), 3000);
     
     $("#darkmode-toggle").click(function() {
         $("#darkmode-toggle").toggleClass("darkmode-active");
