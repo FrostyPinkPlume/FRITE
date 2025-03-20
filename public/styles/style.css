@@ -98,7 +98,7 @@ a {
 }
 
 table {
-    width : 50%;
+    width : 75%;
 }
 
 td, th {
@@ -260,4 +260,50 @@ footer {
 .frite-headbar {
     display: flex;
     width: 100%;
+}
+
+.vitesse-colonne {
+    position: relative;
+    width: 50px;
+    cursor: pointer;
+    height: 2rem;
+    overflow: visible; /* Assurez-vous que le parent ne limite pas le comportement collant */
+}
+
+.vitesse-label {
+    position: -webkit-sticky; /* Pour la compatibilité avec Safari */
+    position: sticky;
+    top: 10px; /* La position à laquelle l'élément devient "collant" */
+    left: calc(50% + 5px); /* Décalage à droite du point */
+    white-space: nowrap;
+    background: white;
+    padding: 2px;
+    border: 1px solid black;
+    z-index: 15;
+    transition: top 0.2s ease-out;
+}
+
+.interval-element{
+    position: absolute;
+    background-color: black;
+    right: 0%;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+.dynamic-point {
+    border-radius: 100px;
+    width: 10px;
+    height: 10px;
+}
+.static-point{
+    width: 15px;
+    height: 15px;
+}
+.ligne-vitesse {
+    position: absolute;
+    width: 4px;
+    background-color: black;
+    right: 0%;
+    /* transform: translateX(-50%); */
+    z-index: 10;
 }
