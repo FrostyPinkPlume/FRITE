@@ -38,7 +38,7 @@ function calculsMoyennes(limites) {
 
 function ajouterLabel(td, vitesse){
     //td.append('<div class="vitesse-label">' + String(vitesse) + ' km/h</div>');
-    td.append('<span>' + String(vitesse) + '</span>')
+    td.append('<span>' + String(vitesse) + ' km/h</span>')
 }
 
 function parseTime(horaire) { // Transforme l'horaire en format "HH.mm" en timestamp
