@@ -28,7 +28,7 @@ function calculsMoyennes(limites) {
         const derniereLimiteIntervalle = $(limites[i-1]);
         const limiteIntervalle = $(limites[i]);
 
-        const distance = limiteIntervalle.parent().data("km") - derniereLimiteIntervalle.parent().data("km"); // Récupérer la distance a partir des données stockées dans data-km de la ligne (parent de la case de tableau)
+        const distance = Math.abs(limiteIntervalle.parent().data("km") - derniereLimiteIntervalle.parent().data("km")); // Récupérer la distance a partir des données stockées dans data-km de la ligne (parent de la case de tableau) (Mise en valeur absolue pour éviter les vitesses négatives)
         const temps = (parseTime(limiteIntervalle.parent().data("horaire")) - parseTime(derniereLimiteIntervalle.parent().data("horaire")))/3600000; // Récupère le temps (en heure) entre lmes deux limites
 
         ajouterLabel(limiteIntervalle, (distance / temps).toFixed(0));
