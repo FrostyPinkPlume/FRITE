@@ -23,10 +23,16 @@
 
 
     --even-lines-background-color: var(--lighter-main);
+    --interval-elements-color: var(--text-light);
+    --background-color: #ffffff;
+    --text-color: var(--text-light);
 }
 
 .dark {
     --even-lines-background-color: var(--darker-main);
+    --interval-elements-color: var(--text-dark);
+    --background-color: #000000;
+    --text-color: var(--text-dark);
 }
 
 body {
@@ -43,12 +49,11 @@ body {
     justify-content: center;
     margin: 0px;
     transition: background-color 0.3s, color 0.3s;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
-.dark body {
-    background-color: var(--even-darker-main);
-    color: var(--text-dark);
-}
+.dark
 
 .split-flap {
     display: flex;
@@ -99,6 +104,7 @@ a {
 
 table {
     width : 75%;
+    border: 0px;
 }
 
 td, th {
@@ -109,6 +115,10 @@ td, th {
 
 .topAlignment {
     vertical-align: top; /* Texte aligné en haut pour les cellules avec cette classe */
+}
+
+td {
+    border-left: var(--background-color) 2px solid;
 }
 
 tr:nth-child(even) {
@@ -268,6 +278,7 @@ footer {
     cursor: pointer;
     height: 2rem;
     overflow: visible; /* Assurez-vous que le parent ne limite pas le comportement collant */
+    border-right: var(--interval-elements-color) solid 2px;
 }
 
 .vitesse-label {
@@ -285,20 +296,35 @@ footer {
 
 .interval-element{
     position: absolute;
-    background-color: black;
-    right: 0%;
-    top: 50%;
-    transform: translate(50%, -50%);
+    right: -1px;
 }
 .dynamic-point {
+    background-color: var(--interval-elements-color);
     border-radius: 100px;
     width: 10px;
     height: 10px;
+    top: 50%;
+    transform: translate(50%, -50%);
 }
 .static-point{
-    width: 15px;
-    height: 15px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
 }
+
+.static-point.up {
+    border-bottom: 20px solid var(--interval-elements-color);
+    bottom: 0%;
+    transform: translate(50%, 0%);
+}
+
+.static-point.down {
+    border-top: 20px solid var(--interval-elements-color);
+    top: 0%;
+    transform: translate(50%, 0%);
+}
+
 .ligne-vitesse {
     position: absolute;
     width: 4px;

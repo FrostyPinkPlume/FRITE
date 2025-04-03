@@ -26,7 +26,7 @@
         <% if (typeof erreur !== 'undefined' && erreur) { %>
             <p><%= erreur %></p>
         <% } else if (data) { %>
-            <table>
+            <table cellspacing="0" cellpadding="0">
                 <tr>
                     <th>Gare</th>
                     <th>Horaire</th>
@@ -38,7 +38,7 @@
                 let i = 0;
                 const nombreDEntree = Object.keys(data).length;
                 data.forEach(entry => { 
-                    if (entry.depart !== null) {%>
+                    if (entry.depart !== null) { // Est ce que l'entrée horaire comporte une entrée "depart" signe qu'il s'agit d'une gare d'arret %> 
                         <tr data-km="<%= entry.pk[0]["pk"] %>" data-horaire="<%= entry.horaire %>">
                             <td><b><%= entry.gare %> (Arrivée)</b></td>
                             <td><%= entry.horaire %></td>
@@ -56,7 +56,7 @@
                                 <% } %>
                             </td>
                             <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
-                            <td class="vitesse-colonne limite-immutable"></td>
+                            <td class="vitesse-colonne limite-immutable down"></td>
                         </tr>
                         <tr data-km="<%= entry.pk[0]["pk"] %>" data-horaire="<%= entry.depart %>">
                             <td><%= entry.gare %> (Départ)</td>
@@ -75,9 +75,9 @@
                                 <% } %>
                             </td>
                             <td class="topAlignment">-</td>
-                            <td class="vitesse-colonne limite-immutable"></td>
+                            <td class="vitesse-colonne limite-immutable up keep-empty"></td>
                         </tr>
-                    <% } else {%>
+                    <% } else { // Il ne s'agit pas d'une gare d'arret %> 
                         <tr data-km="<%= entry.pk[0]["pk"] %>" data-horaire="<%= entry.horaire %>">
                             <td><%= entry.gare %></td>
                             <td><%= entry.horaire %></td>
@@ -95,7 +95,7 @@
                                 <% } %>
                             </td>
                             <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
-                            <td class="vitesse-colonne <% if (i == 0 || i+1 == nombreDEntree) { %>limite-immutable<% } %>"></td>
+                            <td class="vitesse-colonne <% if (i == 0 || i+1 == nombreDEntree) { %>limite-immutable <% } %>"></td>
                         </tr>
                     <% }
                     i++;

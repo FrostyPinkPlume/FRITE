@@ -3,8 +3,9 @@ function dessinerIntervalles() {
     const limites = $(".limite-immutable").add($(".limite-dynamique")); // récupérer toutes les limites
     
     dessinerPoints();
-    dessinerLigne();
+    // dessinerLigne();
     calculsMoyennes(limites);
+    placeStaticPoint();
 }
 
 function dessinerPoints() {
@@ -38,7 +39,9 @@ function calculsMoyennes(limites) {
 
 function ajouterLabel(td, vitesse){
     //td.append('<div class="vitesse-label">' + String(vitesse) + ' km/h</div>');
-    td.append('<span>' + String(vitesse) + ' km/h</span>')
+    if (!td.hasClass("keep-empty")) {
+        td.append('<span>' + String(vitesse) + ' km/h</span>');
+    }
 }
 
 function parseTime(horaire) { // Transforme l'horaire en format "HH.mm" en timestamp
@@ -46,6 +49,16 @@ function parseTime(horaire) { // Transforme l'horaire en format "HH.mm" en times
     let date = new Date();
     date.setHours(heures, minutes, 0, 0);
     return date.getTime();
+}
+
+function placeStaticPoint() { // Permet de replacer les classes "up" et "down" sur les éléments statics pour leur redonner leur forme 
+    $('.static-point').each(function(index) { // Récupérer chaque élément "static-point"
+        if (index % 2 === 0) { // Modulo pour les impairs et pairs
+          $(this).addClass('down');
+        } else {
+          $(this).addClass('up');
+        }
+      });      
 }
 
 $(document).on("click", ".vitesse-colonne", function() {
@@ -56,7 +69,7 @@ $(document).on("click", ".vitesse-colonne", function() {
 });
 
 $(function() {
-    $(".vitesse-colonne")
+    $(".vitesse-colonne");
 
     dessinerIntervalles();
 });
