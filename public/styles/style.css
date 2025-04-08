@@ -56,8 +56,6 @@ body {
     color: var(--text-color);
 }
 
-.dark
-
 .split-flap {
     display: flex;
     font-family: monospace;
