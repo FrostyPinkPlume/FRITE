@@ -16,6 +16,9 @@
     --darker-main: #694C4F;
     --even-darker-main: #0d0d0d;
     --secondary-color: #FAE9B4;
+    --tertiary-color: #CDA4DE;
+    --darker-tertiary: #9B6AB3;
+    --lighter-tertiary: #D9B2E8;
     --text-light: #000000;
     --text-dark: #ffffff;
     --text-primary-light: #FFD5E1;
@@ -36,7 +39,7 @@ body {
     position: relative;
     /* background-image: linear-gradient(37deg,#1f2537,#286fff 500%); 
     color: #b1b8c0;*/
-    min-height: 95vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -89,7 +92,12 @@ body {
 }
 
 .pinkBody {
-    background-image: linear-gradient(37deg,#ffe6f2,#fab4bc 500%);
+    background-image: 
+        url('/assets/images/frite_white_split.png'),
+        linear-gradient(37deg, #ffe6f2, #fab4bc 500%);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: auto 100%; /* pour que l’image prenne toute la hauteur */
 }
 
 a {
@@ -260,4 +268,98 @@ footer {
 .frite-headbar {
     display: flex;
     width: 100%;
+}
+
+.vitesse-colonne {
+    position: relative;
+    width: 50px;
+    cursor: pointer;
+    height: 2rem;
+    overflow: visible; /* Assurez-vous que le parent ne limite pas le comportement collant */
+    border-right: var(--interval-elements-color) solid 2px;
+}
+
+.vitesse-label {
+    position: -webkit-sticky; /* Pour la compatibilité avec Safari */
+    position: sticky;
+    top: 10px; /* La position à laquelle l'élément devient "collant" */
+    left: calc(50% + 5px); /* Décalage à droite du point */
+    white-space: nowrap;
+    background: white;
+    padding: 2px;
+    border: 1px solid black;
+    z-index: 15;
+    transition: top 0.2s ease-out;
+}
+
+.interval-element{
+    position: absolute;
+    right: -1px;
+}
+.dynamic-point {
+    background-color: var(--interval-elements-color);
+    border-radius: 100px;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+.static-point{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.static-point.up {
+    border-bottom: 20px solid var(--interval-elements-color);
+    bottom: 0%;
+    transform: translate(50%, 0%);
+}
+
+.static-point.down {
+    border-top: 20px solid var(--interval-elements-color);
+    top: 0%;
+    transform: translate(50%, 0%);
+}
+
+.ligne-vitesse {
+    position: absolute;
+    width: 4px;
+    background-color: black;
+    right: 0%;
+    /* transform: translateX(-50%); */
+    z-index: 10;
+}
+
+[type="submit"] {
+    border-radius: 9999px;
+    border: 0px;
+    background-color: var(--tertiary-color);
+    padding: 20px;
+    margin-top: 20px; 
+}
+
+[type="submit"]:hover {
+    border-radius: 9999px;
+    border: 0px;
+    background-color: var(--lighter-tertiary);
+    padding: 20px;
+    margin-top: 20px; 
+}
+
+[type="submit"]:disabled {
+    border-radius: 9999px;
+    border: 0px;
+    background-color: lightgray;
+    padding: 20px;
+    margin-top: 20px; 
+}
+
+[type="submit"]:disabled:hover {
+    border-radius: 9999px;
+    border: 0px;
+    background-color: lightgray;
+    padding: 20px;
+    margin-top: 20px; 
 }
