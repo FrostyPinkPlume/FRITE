@@ -57,10 +57,13 @@ const messages = [
     "Keep talking and everybody live", // Keep talking and nobody explode
     "Pas comme Derail Valley", // Derail Valley
     "Grimpe, tombe, recommence", // Celeste
-    "FTL -> Fiche Train Ligne", // FTL FAster Than Light
+    "FTL -> Fiche Train Ligne", // FTL Faster Than Light
     "Rail Route", // Rail route
     "42", // La grande question sur la vie, l'Univers et le reste du Guide du voyageur galactique
     "J'utilise Arch d'ailleurs", // Linux
+    "SIRIUS jaloux de ma licence", // Logiciel SIRIUS à licence fermé
+    "RE-RAILED", // Unrailed
+    "Charles fait choo choo", // Choo Choo Charles
 ];
 
 const gares = [
