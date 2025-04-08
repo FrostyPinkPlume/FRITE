@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <%- include('../partials/head'); %>
+        <script defer="defer" src="/assets/scripts/viewer.js"></script>
     </head>
     <body>
         <div class="frite-headbar">
@@ -25,71 +26,25 @@
         <% if (typeof erreur !== 'undefined' && erreur) { %>
             <p><%= erreur %></p>
         <% } else if (data) { %>
-            <table>
+            <table cellspacing="0" cellpadding="0">
                 <tr>
                     <th>Gare</th>
                     <th>Horaire</th>
                     <th>Point Kilométrique</th>
                     <th>Vitesse moyenne*</th>
+                    <th>Intervalle👆</th>
                 </tr>
-                <% data.forEach(entry => { 
-                    if (entry.depart !== null) {%>
-                        <tr>
-                            <td><b><%= entry.gare %> (Arrivée)</b></td>
-                            <td><%= entry.horaire %></td>
-                            <td>
-                                <% if (entry.pk && entry.pk.length > 0) { %>
-                                    <% entry.pk.forEach(p => { %>
-                                        <% if (debug_frite) { %>
-                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
-                                        <% } else { %>
-                                            <div><%= p.pk %></div>
-                                        <% } %>
-                                    <% }) %>
-                                <% } else { %>
-                                    Non trouvé
-                                <% } %>
-                            </td>
-                            <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
-                        </tr>
-                        <tr>
-                            <td><%= entry.gare %> (Départ)</td>
-                            <td><%= entry.depart %></td>
-                            <td>
-                                <% if (entry.pk && entry.pk.length > 0) { %>
-                                    <% entry.pk.forEach(p => { %>
-                                        <% if (debug_frite) { %>
-                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
-                                        <% } else { %>
-                                            <div><%= p.pk %></div>
-                                        <% } %>
-                                    <% }) %>
-                                <% } else { %>
-                                    Non trouvé
-                                <% } %>
-                            </td>
-                            <td class="topAlignment">-</td>
-                        </tr>
-                    <% } else {%>
-                        <tr>
-                            <td><%= entry.gare %></td>
-                            <td><%= entry.horaire %></td>
-                            <td>
-                                <% if (entry.pk && entry.pk.length > 0) { %>
-                                    <% entry.pk.forEach(p => { %>
-                                        <% if (debug_frite) { %>
-                                            <div><%= "Ligne " + p.code_ligne + " : " + p.pk %></div>
-                                        <% } else { %>
-                                            <div><%= p.pk %></div>
-                                        <% } %>
-                                    <% }) %>
-                                <% } else { %>
-                                    Non trouvé
-                                <% } %>
-                            </td>
-                            <td class="topAlignment"><%= entry.vitesse !== "-" ? entry.vitesse + " km/h" : "-" %></td>
-                        </tr>
+                <% 
+                let i = 0;
+                const nombreDEntree = Object.keys(data).length;
+                data.forEach(entry => { 
+                    if (entry.depart !== null) { // Est ce que l'entrée horaire comporte une entrée "depart" signe qu'il s'agit d'une gare d'arret %> 
+                        <%- table_line("<b>" + entry.gare + " (Arrivée)</b>", entry.horaire, entry.pk, entry.vitesse, debug_frite, true, "down") %>
+                        <%- table_line("<b>" + entry.gare + " (Départ)</b>", entry.depart, entry.pk, "-", debug_frite, true, "up") %>
+                    <% }else { // Il ne s'agit pas d'une gare d'arret %> 
+                        <%- table_line(entry.gare, entry.horaire, entry.pk, entry.vitesse, debug_frite, (i == 0 || i+1 == nombreDEntree) ) // Rend le point d'interval immuable si première ou derniere entrée %> 
                     <% }
+                    i++;
                 }) %>
             </table>
             <p class="prevent" style="text-align: center;"><i>* Les vitesses moyennes sont purement issues de calculs entre les horaires de passages indiqués par votre fiche HOUAT et les point kilométriques et ne sont pas des vitesses à atteindre.<br />Elles peuvent être supérieures aux vitesses maximales selon votre catégorie.<br /><br />Ne dépassez jamais la plus basse des vitesses limites de votre train.</i></p>

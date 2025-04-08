@@ -12,6 +12,8 @@ import { writeInCache, getInCache, doCacheExist} from '../scripts/functions/cach
 
 import { spawn } from 'child_process'; // Permet l'appel de l'analyseur python
 
+// Importation des fonctions pour la view
+import * as view_functions from '../scripts/functions/views/analyse_view_f.js';
 
 // Constantes
 const __filename = fileURLToPath(import.meta.url);
@@ -72,23 +74,23 @@ router.get('/', async (req, res) => {
     // Vérifications de fileName
     switch(verifyFileName(fileName)) {
         case 1: // fileName n'est pas défini ou vaut ""
-            return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Veuillez préciser une fiche HOUAT." });
+            return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "Veuillez préciser une fiche HOUAT." });
         case 2: // fileName est un array (possible si la variable file est déclarée plusieurs fois dans l'URL)
-            return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
+            return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "Vous ne pouvez précisez qu'une fiche HOUAT à la fois." });
         case 3: // fileName n'est pas dans un format attendu (entre autre, une suite de nombres suivis de .pdf)
-            return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "La ressource demandée est invalide." });
+            return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "La ressource demandée est invalide." });
     }
 
     // Vérifier si le fichier pdf existe
     if (!fs.existsSync(path.join(uploadDir, fileName))) {
-        return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Le fichier demandé n'existe pas/plus. Ce site étant encore en développement précoce, votre fichier a peut-être été nettoyé du système lors d'un redéploiement. Veuillez m'en excuser" });
+        return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "Le fichier demandé n'existe pas/plus. Ce site étant encore en développement précoce, votre fichier a peut-être été nettoyé du système lors d'un redéploiement. Veuillez m'en excuser" });
     }
 
     // Vérifier si quelque chose n'est pas dans les caches sur ce fichier
     if (doCacheExist(fileName)) {
         const dataFromCache = getInCache(fileName);
 
-        return res.render('pages/analyse', { debug_frite: debug, file: fileName, data: dataFromCache });
+        return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: fileName, data: dataFromCache });
     }
 
     // Récupérer le chemin vers le fichier
@@ -115,7 +117,7 @@ router.get('/', async (req, res) => {
     pythonProcess.on('close', (code) => {
         // Si le code de sortie n'est pas "OK" (différent de 0)
         if (code !== 0) {
-            return res.render('pages/analyse', { debug_frite: debug, file: fileName, data: null });
+            return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: fileName, data: null });
         }
 
         // Code de sorti est OK, essayer de parser les donner JSON, sinon affiche l'erreur du parsing JSON
@@ -126,12 +128,12 @@ router.get('/', async (req, res) => {
             try {
                 parsedData = JSON.parse(output);
             } catch (e) {
-                return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Erreur lors de l'interpretation des données de l'analyse. Veuillez m'en excuser" });
+                return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "Erreur lors de l'interpretation des données de l'analyse. Veuillez m'en excuser" });
             }
 
             // Si les données parsées sont vide, donner un retour différent
             if(parsedData.length == 0){
-                return res.render('pages/analyse', { debug_frite: debug, file: null, erreur: "Le fichier analysé n'a pas renvoyé de donnée. Assurez-vous que le fichier envoyé soit valide et contienne bien du texte.\n(Certaines fiches HOUAT peuvent ne pas contenir de texte exploitable et ne contenir qu'une image du tableau horaire)." });
+                return res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: null, erreur: "Le fichier analysé n'a pas renvoyé de donnée. Assurez-vous que le fichier envoyé soit valide et contienne bien du texte.\n(Certaines fiches HOUAT peuvent ne pas contenir de texte exploitable et ne contenir qu'une image du tableau horaire)." });
             }
 
             // Associe les gares aux PKs
@@ -151,10 +153,10 @@ router.get('/', async (req, res) => {
             // Ecrire dans le cache
             writeInCache(fileName, parsedData);
 
-            res.render('pages/analyse', { debug_frite: debug, file: fileName, data: parsedData });
+            res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: fileName, data: parsedData });
         } catch (error) {
             console.error("Erreur parsing JSON :", error);
-            res.render('pages/analyse', { debug_frite: debug, file: fileName, data: null });
+            res.render('pages/analyse', { ...view_functions, debug_frite: debug, file: fileName, data: null });
         }
     });
 })

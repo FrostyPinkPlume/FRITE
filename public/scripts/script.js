@@ -68,4 +68,27 @@ $(function() {
         $("#darkmode-toggle").toggleClass("darkmode-active");
         $("html").toggleClass("dark");
     });
+
+    // Désactive les inputs submit des formulaires non valides
+    $('form').each(function () {
+        const $form = $(this);
+        const $submit = $form.find('[type="submit"]');
+  
+        function updateButtonState() {
+          // Vérifier validité du form
+          let isValid = true;
+          $form.find('[required]').each(function () {
+            if (!this.checkValidity()) {
+              isValid = false;
+              return false; // on sort du .each
+            }
+          });
+          $submit.prop('disabled', !isValid);
+        }
+  
+        $form.on('input change', updateButtonState);
+  
+        // Pour gérer les champs préremplis ou autofill
+        updateButtonState();
+    });
 });
