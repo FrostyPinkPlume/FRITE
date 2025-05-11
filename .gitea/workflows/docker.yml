@@ -33,6 +33,7 @@ jobs:
           registry: gitea.necos.cloud
           username: "FrostyPinkPlume"
           password: "${{ secrets.CI_TOKEN }}"
+          logout: false
 
       # --- Build & push avec buildx ---
       - uses: docker/build-push-action@v5
