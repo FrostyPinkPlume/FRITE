@@ -27,7 +27,7 @@ jobs:
       - uses: docker/login-action@v3
         with:
           registry: ${{ env.CI_SERVER_HOST }}
-          username: "${{ env.CI_REPOSITORY_OWNER }}"
+          username: "FrostyPinkPlume"
           password: "${{ secrets.CI_TOKEN }}"
 
       # --- Build & push avec buildx ---
