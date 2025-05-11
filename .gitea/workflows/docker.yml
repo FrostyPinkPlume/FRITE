@@ -21,6 +21,11 @@ jobs:
       contents: read
 
     steps:
+      - name: Inject CA cert
+        run: |
+          echo "${{ secrets.CA_CRT_B64 }}" | base64 -d > /usr/local/share/ca-certificates/custom.crt
+          update-ca-certificates
+
       - name: Install Node.js
         run: apk add --no-cache nodejs npm
         if: runner.os == 'Linux'
