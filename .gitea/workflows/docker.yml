@@ -15,10 +15,10 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted         # ton runner
-    container:                   # image qui embarque docker + node
-      image: docker:24-dind
-      options: --privileged
+    runs-on: docker
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Install Node.js
