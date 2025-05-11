@@ -15,12 +15,17 @@ on:
 
 jobs:
   build:
-    runs-on: docker
-    permissions:
-      packages: write
-      contents: read
+    runs-on: self-hosted         # ton runner
+    container:                   # image qui embarque docker + node
+      image: docker:24-dind
+      options: --privileged
 
     steps:
+      - name: Install Node.js
+        run: apk add --no-cache nodejs npm
+        if: runner.os == 'Linux'
+
+
       - uses: actions/checkout@v4
 
       # --- Login au registre Gitea ---
